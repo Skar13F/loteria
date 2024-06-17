@@ -18,6 +18,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/loteria-websocket").withSockJS();
+        registry.addEndpoint("/loteria-websocket")
+        .setAllowedOrigins("http://localhost:4200").withSockJS();
+
     }
 }
