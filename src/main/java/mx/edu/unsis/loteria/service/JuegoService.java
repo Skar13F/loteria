@@ -17,7 +17,7 @@ public class JuegoService {
         return juego;
     }
 
-    public Jugador obtenerJugadorPorId(Juego juego, int id) {
+    public Jugador obtenerJugadorPorId(Juego juego, String id) {
         for (Jugador jugador : juego.getJugadores()) {
             if (jugador.getIdJugador() == id) {
                 return jugador;

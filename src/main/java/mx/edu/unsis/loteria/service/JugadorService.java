@@ -1,27 +1,37 @@
 package mx.edu.unsis.loteria.service;
 
-import mx.edu.unsis.loteria.model.Carton;
-import mx.edu.unsis.loteria.model.Jugador;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import mx.edu.unsis.loteria.model.Carta;
+import mx.edu.unsis.loteria.model.Carton;
+import mx.edu.unsis.loteria.model.Jugador;
 
 @Service
 public class JugadorService {
+    private static GeneralMethods generalMethods = new GeneralMethods();
 
-    public Jugador crearJugador(int idJugador, String nombre, Carton carton) {
-        Jugador jugador = new Jugador();
-        jugador.setIdJugador(idJugador);
-        jugador.setNombre(nombre);
+
+    public Jugador crearJugador(Jugador jugador){
+        UUID uuid = UUID.randomUUID();
+
+        Carton carton=generalMethods.crearCartonImg();
+
+        jugador.setIdJugador(uuid.toString());
+        jugador.setNombre(jugador.getNombre());
         jugador.setCarton(carton);
+
         return jugador;
     }
 
-    public void actualizarCarton(Jugador jugador, Carton nuevoCarton) {
-        jugador.setCarton(nuevoCarton);
+    public Jugador actualizarJugador(Jugador jugador,Carta carta) {
+        generalMethods.MarcarCartasJugadores(jugador, carta);
+        return jugador;
     }
 
-    public Jugador buscarPorId(List<Jugador> jugadores, int id) {
+    public Jugador buscarPorId(List<Jugador> jugadores, String id) {
         for (Jugador jugador : jugadores) {
             if (jugador.getIdJugador() == id) {
                 return jugador;

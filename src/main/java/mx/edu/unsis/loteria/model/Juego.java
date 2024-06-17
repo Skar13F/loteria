@@ -3,8 +3,13 @@ package mx.edu.unsis.loteria.model;
 import java.util.ArrayList;
 
 public class Juego {
+    private String idJuego;
     private Cantador cantador;
     private ArrayList<Jugador> jugadores;
+    
+    public String getIdJuego() {
+        return idJuego;
+    }
 
     public Cantador getCantador() {
         return cantador;
@@ -20,5 +25,9 @@ public class Juego {
 
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
+    }
+
+    public void setIdJuego(String idJuego) {
+        this.idJuego = idJuego;
     }
 }

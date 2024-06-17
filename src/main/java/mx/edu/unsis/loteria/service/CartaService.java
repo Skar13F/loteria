@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class CartaService {
 
-    public Carta crearCarta(String nombre, String rutaCarta, int idCarta, int x, int y) {
-        return new Carta(idCarta, nombre, rutaCarta, x, y);
+    public Carta crearCarta(String nombre, String rutaCarta, int idCarta) {
+        return new Carta(idCarta, nombre, rutaCarta);
     }
 
     public void actualizarDatosCarta(Carta carta, String nuevoNombre, String nuevaRuta) {
