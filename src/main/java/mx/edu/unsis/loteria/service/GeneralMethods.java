@@ -12,6 +12,7 @@ import mx.edu.unsis.loteria.model.NumsRandom;
 public class GeneralMethods {
     private static CartonService cartonService = new CartonService();
     private static CartaService cartaService = new CartaService();
+    private static NumsRandom nr = new NumsRandom();
 
     // creamos un cartón con todas las imagenes que se cargará en la vista
     public Carton crearCartonImg() {
@@ -21,13 +22,13 @@ public class GeneralMethods {
         int[][] matrizMarcado = new int[4][4];
         Carton carton = new Carton();
 
-        NumsRandom nr = new NumsRandom();
         carton.setCartasEnCarton(new ArrayList<>());
 
         cartonService.crearMatrizCarton(matrizMarcado);
 
         carton.setMatrizMarcado(matrizMarcado);
         ArrayList<Integer> idsCartas = nr.GenerarNumeros(16);
+
 
         for (int fila = 0; fila < 4; fila++) {
             for (int columna = 0; columna < 4; columna++) {
@@ -40,6 +41,21 @@ public class GeneralMethods {
             }
         }
         return carton;
+    }
+
+    public ArrayList<Carta> agregarCartasCantaro() {
+        ArrayList<Carta> cartasEnCantaro = new ArrayList<>();
+        // obtenemos un hash de las cartas
+        Map<Integer, String> cards = new HashMap<>();
+        mapearImagenes(cards);
+        // revolvemos las cartas
+        ArrayList<Integer> idsCartas = nr.GenerarNumeros(cards.size());
+        for (int i = 0; i < cards.size(); i++) {
+            Carta carta = cartaService.crearCarta(cards.get(idsCartas.get(i)),
+                    "assets/img/" + idsCartas.get(i) + ".jpg", idsCartas.get(i));
+            cartasEnCantaro.add(carta);
+        }
+        return cartasEnCantaro;
     }
 
     private void mapearImagenes(Map<Integer, String> cards) {
@@ -93,10 +109,10 @@ public class GeneralMethods {
         cards.put(48, "La Chalupa");
         cards.put(49, "El Pino");
         cards.put(50, "El Pescado");
-        cards.put(51, "La Palma");
+        cards.put(0, "La Palma");
     }
 
-    //marcamos las cartas
+    // marcamos las cartas
     public void MarcarCartasJugadores(Jugador jugador, Carta cartaSacada) {
 
         Carton c = jugador.getCarton();
@@ -109,10 +125,10 @@ public class GeneralMethods {
     }
 
     public void VerificarGanado(Jugador jugador) {
-        
-            Carton c = jugador.getCarton();
-            if (cartonService.verificarMatrizLlena(c)) {
-                jugador.setGanado(true);
-            }
+
+        Carton c = jugador.getCarton();
+        if (cartonService.verificarMatrizLlena(c)) {
+            jugador.setGanado(true);
+        }
     }
 }

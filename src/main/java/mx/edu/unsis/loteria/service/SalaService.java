@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import mx.edu.unsis.loteria.model.Cantador;
 import mx.edu.unsis.loteria.model.Jugador;
 import mx.edu.unsis.loteria.model.Sala;
 
@@ -30,8 +29,10 @@ public class SalaService {
     public Sala crearSala() {
         Sala sala = new Sala();
         sala.setId(UUID.randomUUID().toString());
-        sala.setCantador(new Cantador());
+        sala.setCantador(new CantadorService().getCantador());
         sala.setJugadores(new ArrayList<>());
+        //inicializamos el cantador agregandole las cartas al cántaro
+        sala.getCantador().setCartasEnCantaro(new GeneralMethods().agregarCartasCantaro());
         loteriaService.agregarSala(sala);
         return sala;
     }
