@@ -10,36 +10,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import mx.edu.unsis.loteria.dto.Room;
 import mx.edu.unsis.loteria.model.Jugador;
-import mx.edu.unsis.loteria.service.RoomService;
+import mx.edu.unsis.loteria.model.Sala;
+import mx.edu.unsis.loteria.service.SalaService;
 
 @RestController
-@RequestMapping("/api/rooms")
-public class RoomController {
+@RequestMapping("/api/salas")
+public class SalaController {
 
     @Autowired
-    private RoomService roomService;
+    private SalaService salaService;
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    @PostMapping("/create")
-    public ResponseEntity<Room> createRoom() {
-        Room room = roomService.createRoom();
-        messagingTemplate.convertAndSend("/topic/rooms", room);
-
-        return ResponseEntity.ok(room);
+    @PostMapping("/crear")
+    public ResponseEntity<Sala> crearSala() {
+        Sala sala = salaService.crearSala();
+        messagingTemplate.convertAndSend("/topic/salas", sala);
+        return ResponseEntity.ok(sala);
     }
 
-    @PostMapping("/join")
-    public ResponseEntity<Room> joinRoom(@RequestParam String roomId, @RequestBody Jugador jugador) {
-        Room room = roomService.addPlayerToRoom(roomId, jugador);
-        return ResponseEntity.ok(room);
+    @PostMapping("/unirse")
+    public ResponseEntity<Sala> unirseSala(@RequestParam String salaId, @RequestBody Jugador jugador) {
+        Sala sala = salaService.agregarJugadorSala(salaId, jugador);
+        return ResponseEntity.ok(sala);
     }
 
-    @GetMapping("/available")
+    @GetMapping("/disponible")
     public ResponseEntity<?> getAvailableRooms() {
         // Lógica para obtener salas disponibles
-        return ResponseEntity.ok(roomService.getAllRooms());
+        return ResponseEntity.ok(salaService.obtenerSalas());
     }
 }
