@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import mx.edu.unsis.loteria.model.Carta;
 import mx.edu.unsis.loteria.model.Jugador;
 import mx.edu.unsis.loteria.model.Sala;
 import mx.edu.unsis.loteria.service.SalaService;
@@ -40,5 +41,11 @@ public class SalaController {
     public ResponseEntity<?> getAvailableRooms() {
         // Lógica para obtener salas disponibles
         return ResponseEntity.ok(salaService.obtenerSalas());
+    }
+
+    @GetMapping("/carta")
+    public ResponseEntity<Carta> getCarta(@RequestParam String salaId) {
+        Carta carta = salaService.cartaEnCurso(salaId);
+        return ResponseEntity.ok(carta);
     }
 }

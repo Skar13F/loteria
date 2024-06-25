@@ -1,4 +1,5 @@
 package mx.edu.unsis.loteria.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,15 @@ import mx.edu.unsis.loteria.model.Jugador;
 import mx.edu.unsis.loteria.model.Sala;
 import mx.edu.unsis.loteria.service.JugadorService;
 import mx.edu.unsis.loteria.service.SalaService;
+
 @Controller
 public class JuegoWebSocketController {
     @Autowired
     private SalaService salaService;
-    
+
     @Autowired
     private JugadorService jugadorService;
-    
+
     @MessageMapping("/salas")
     @SendTo("/topic/salas")
     public List<Sala> getSalas() {
@@ -30,4 +32,5 @@ public class JuegoWebSocketController {
         Jugador jugadorCreado = jugadorService.crearJugador(jugador);
         return jugadorCreado;
     }
+
 }

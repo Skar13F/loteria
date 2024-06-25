@@ -28,13 +28,13 @@ public class GeneralMethods {
 
         carton.setMatrizMarcado(matrizMarcado);
         ArrayList<Integer> idsCartas = nr.GenerarNumeros(16);
-
+        System.out.println(idsCartas);
 
         for (int fila = 0; fila < 4; fila++) {
             for (int columna = 0; columna < 4; columna++) {
                 int indice = fila * 4 + columna;
                 if (indice < idsCartas.size()) {
-                    Carta carta = cartaService.crearCarta(cards.get(indice),
+                    Carta carta = cartaService.crearCarta(cards.get( idsCartas.get(indice)),
                             "assets/img/" + idsCartas.get(indice) + ".jpg", idsCartas.get(indice));
                     cartonService.agregarCartaAlCarton(carton, carta);
                 }
@@ -109,7 +109,10 @@ public class GeneralMethods {
         cards.put(48, "La Chalupa");
         cards.put(49, "El Pino");
         cards.put(50, "El Pescado");
-        cards.put(0, "La Palma");
+        cards.put(51, "La Palma");
+        cards.put(52, "La Maceta");
+        cards.put(53, "El Arpa");
+        cards.put(0, "La Rana");
     }
 
     // marcamos las cartas

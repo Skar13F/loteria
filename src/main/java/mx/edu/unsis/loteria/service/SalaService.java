@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import mx.edu.unsis.loteria.model.Carta;
 import mx.edu.unsis.loteria.model.Jugador;
 import mx.edu.unsis.loteria.model.Sala;
 
@@ -40,9 +41,17 @@ public class SalaService {
     public Sala agregarJugadorSala(String salaId, Jugador jugador) {
         Sala sala = loteriaService.obtenerSala(salaId);
         if (sala != null) {
+            if (sala.isJuegoIniciado()==false) {
+                sala.setJuegoIniciado(true);
+            }
             sala.getJugadores().add(jugador);
             loteriaService.agregarSala(sala); // Actualiza la sala con el nuevo jugador
         }
         return sala;
     }
+
+    public Carta cartaEnCurso(String idSala){
+        Sala sala = loteriaService.obtenerSala(idSala);
+        return new CantadorService().cartaPrincipal(sala.getCantador());
+    } 
 }

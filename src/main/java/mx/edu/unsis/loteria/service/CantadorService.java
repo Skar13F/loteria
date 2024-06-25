@@ -48,4 +48,11 @@ public class CantadorService {
     public Cantador getCantador() {
         return cantador;
     }
+    public Carta cartaPrincipal(Cantador cantador){
+        if (cantador.getCartasSacadas().size()!=0) {
+            return cantador.getCartasSacadas().get(cantador.getCartasSacadas().size()-1);
+
+        }
+        return cantador.getCartasEnCantaro().get(0);
+    }
 }
