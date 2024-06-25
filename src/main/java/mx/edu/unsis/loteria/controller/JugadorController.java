@@ -34,4 +34,16 @@ public class JugadorController {
         }
     }
 
+    @GetMapping("/{idSala}/{idJugador}")
+    public ResponseEntity<Jugador> obtenerJugador(
+            @PathVariable String idSala,
+            @PathVariable String idJugador) {
+        Jugador jugador = jugadorService.buscarPorId(idSala, idJugador);
+        if (jugador != null) {
+            return ResponseEntity.ok(jugador);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 import mx.edu.unsis.loteria.model.Carta;
 import mx.edu.unsis.loteria.model.Carton;
 import mx.edu.unsis.loteria.model.Jugador;
+import mx.edu.unsis.loteria.model.Sala;
 
 @Service
 public class JugadorService {
     private static GeneralMethods generalMethods = new GeneralMethods();
 
-
-    public Jugador crearJugador(Jugador jugador){
+    public Jugador crearJugador(Jugador jugador) {
         UUID uuid = UUID.randomUUID();
 
-        Carton carton=generalMethods.crearCartonImg();
+        Carton carton = generalMethods.crearCartonImg();
 
         jugador.setIdJugador(uuid.toString());
         jugador.setNombre(jugador.getNombre());
@@ -26,15 +26,20 @@ public class JugadorService {
         return jugador;
     }
 
-    public Jugador actualizarJugador(Jugador jugador,Carta carta) {
+    public Jugador actualizarJugador(Jugador jugador, Carta carta) {
         generalMethods.MarcarCartasJugadores(jugador, carta);
         return jugador;
     }
 
-    public Jugador buscarPorId(List<Jugador> jugadores, String id) {
-        for (Jugador jugador : jugadores) {
-            if (jugador.getIdJugador() == id) {
-                return jugador;
+    public Jugador buscarPorId(String idSala, String idJugador) {
+        LoteriaService lService = new LoteriaService();
+        Sala sala = lService.obtenerSala(idSala);
+
+        if (sala != null) {
+            for (Jugador jugador : sala.getJugadores()) {
+                if (jugador.getIdJugador().equals(idJugador)) {
+                    return jugador;
+                }
             }
         }
         return null;
