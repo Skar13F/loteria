@@ -31,12 +31,12 @@ public class CantadorService {
         Collections.shuffle(cantador.getCartasEnCantaro());
     }
 
-    public Carta sacarCarta() {
-        if (cantador.getCartasEnCantaro().isEmpty()) {
+    public Carta sacarCarta(Cantador ctr) {
+        if (ctr.getCartasEnCantaro().isEmpty()) {
             return null;
         }
-        Carta cartaSacada = cantador.getCartasEnCantaro().remove(0);
-        cantador.getCartasSacadas().add(cartaSacada);
+        Carta cartaSacada = ctr.getCartasEnCantaro().remove(0);
+        ctr.getCartasSacadas().add(cartaSacada);
         return cartaSacada;
     }
 
@@ -47,5 +47,12 @@ public class CantadorService {
 
     public Cantador getCantador() {
         return cantador;
+    }
+    public Carta cartaPrincipal(Cantador cantador){
+        if (cantador.getCartasSacadas().size()!=0) {
+            return cantador.getCartasSacadas().get(cantador.getCartasSacadas().size()-1);
+
+        }
+        return cantador.getCartasEnCantaro().get(0);
     }
 }
