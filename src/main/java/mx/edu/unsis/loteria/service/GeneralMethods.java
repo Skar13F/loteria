@@ -28,7 +28,6 @@ public class GeneralMethods {
 
         carton.setMatrizMarcado(matrizMarcado);
         ArrayList<Integer> idsCartas = nr.GenerarNumeros(16);
-        System.out.println(idsCartas);
 
         for (int fila = 0; fila < 4; fila++) {
             for (int columna = 0; columna < 4; columna++) {
